@@ -8,10 +8,10 @@ import androidx.ui.core.dp
 import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.VerticalScroller
 import androidx.ui.foundation.selection.Toggleable
+import androidx.ui.graphics.Color
 import androidx.ui.layout.*
-import androidx.ui.material.Divider
+import androidx.ui.material.*
 import androidx.ui.material.ripple.Ripple
-import androidx.ui.material.themeTextStyle
 import androidx.ui.res.imageResource
 import luyao.util.ktx.ext.toast
 import luyao.wanandroid.compose.App
@@ -44,70 +44,79 @@ fun ArticleItem(article: Article) {
 
     Padding(left = 16.dp, right = 16.dp) {
 
-        Column {
-            FlexRow {
-                inflexible {
-                    Container(width = 14.dp, height = 14.dp) {
-                        DrawImage(image)
-                    }
-                }
-                inflexible {
-                    Padding(left = 10.dp) {
-                        Text(
-                            text = if (article.author.isBlank()) "分享者: ${article.shareUser}" else article.author,
-                            style = +themeTextStyle { caption }
-                        )
-                    }
-                }
-                inflexible {
-                    Padding(left = 10.dp) {
-                        Text(
-                            text = "${article.superChapterName}/${article.chapterName}",
-                            style = +themeTextStyle { caption }
-                        )
-                    }
-                }
-            }
-
-            FlexRow {
-                expanded(1f) {
-                    Padding(top = 4.dp, bottom = 4.dp) {
-                        Text(
-                            text = article.title,
-                            style = +themeTextStyle { body1 }
-                        )
-                    }
-                }
-            }
-
-            FlexRow {
-                inflexible {
-                    Container(width = 14.dp, height = 14.dp) {
-                        DrawImage(timeImage)
-                    }
-                }
-                inflexible {
-                    Padding(left = 10.dp) {
-                        Text(
-                            text = article.niceDate,
-                            style = +themeTextStyle { caption }
-                        )
-                    }
-                }
-                inflexible {
-                    Padding(left = 10.dp) {
+        Button(
+            style = ButtonStyle(
+                color = Color.Transparent,
+                shape = +themeShape { button }
+            ),
+            onClick = { }
+        ){
+            Column {
+                FlexRow {
+                    inflexible {
                         Container(width = 14.dp, height = 14.dp) {
-                            ArticleStarButton(isSelected = article.collect, onStarClick = {
-
-                            })
+                            DrawImage(image)
                         }
-
+                    }
+                    inflexible {
+                        Padding(left = 10.dp) {
+                            Text(
+                                text = if (article.author.isBlank()) "分享者: ${article.shareUser}" else article.author,
+                                style = +themeTextStyle { caption }
+                            )
+                        }
+                    }
+                    inflexible {
+                        Padding(left = 10.dp) {
+                            Text(
+                                text = "${article.superChapterName}/${article.chapterName}",
+                                style = +themeTextStyle { caption }
+                            )
+                        }
                     }
                 }
-            }
 
-            HeightSpacer(height = 16.dp)
+                FlexRow {
+                    expanded(1f) {
+                        Padding(top = 4.dp, bottom = 4.dp) {
+                            Text(
+                                text = article.title,
+                                style = +themeTextStyle { body1 }
+                            )
+                        }
+                    }
+                }
+
+                FlexRow {
+                    inflexible {
+                        Container(width = 14.dp, height = 14.dp) {
+                            DrawImage(timeImage)
+                        }
+                    }
+                    inflexible {
+                        Padding(left = 10.dp) {
+                            Text(
+                                text = article.niceDate,
+                                style = +themeTextStyle { caption }
+                            )
+                        }
+                    }
+                    inflexible {
+                        Padding(left = 10.dp) {
+                            Container(width = 14.dp, height = 14.dp) {
+                                ArticleStarButton(isSelected = article.collect, onStarClick = {
+
+                                })
+                            }
+
+                        }
+                    }
+                }
+
+                HeightSpacer(height = 16.dp)
+            }
         }
+
     }
 }
 

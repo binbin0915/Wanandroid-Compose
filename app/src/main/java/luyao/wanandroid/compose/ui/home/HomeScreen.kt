@@ -21,8 +21,8 @@ private enum class HomeSections(val title: String) {
     Main("首页"),
     Square("广场"),
     Lasted("最新项目"),
-    System("体系"),
-    Navigation("导航")
+//    System("体系"),
+//    Navigation("导航")
 }
 
 @Composable
@@ -50,8 +50,8 @@ fun HomeScreen(articleUiModel: ArticleViewModel.ArticleUiModel, openDrawer: () -
                 HomeSections.Main -> MainTab(articleUiModel)
                 HomeSections.Square -> MainTab(articleUiModel)
                 HomeSections.Lasted -> MainTab(articleUiModel)
-                HomeSections.System -> MainTab(articleUiModel)
-                HomeSections.Navigation -> MainTab(articleUiModel)
+//                HomeSections.System -> MainTab(articleUiModel)
+//                HomeSections.Navigation -> MainTab(articleUiModel)
             }
         }
     }
