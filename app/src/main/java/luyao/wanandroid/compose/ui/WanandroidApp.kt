@@ -13,6 +13,7 @@ import androidx.ui.layout.*
 import androidx.ui.material.*
 import androidx.ui.material.surface.Surface
 import luyao.wanandroid.compose.R
+import luyao.wanandroid.compose.ui.about.AboutScreen
 import luyao.wanandroid.compose.ui.home.ArticleViewModel
 import luyao.wanandroid.compose.ui.home.HomeScreen
 
@@ -99,8 +100,7 @@ private fun AppContent(
                     viewModel,
                     openDrawer = { openDrawer() }
                 )
-                is Screen.About -> HomeScreen(
-                    viewModel,
+                is Screen.About -> AboutScreen(
                     openDrawer = { openDrawer() }
                 )
             }
