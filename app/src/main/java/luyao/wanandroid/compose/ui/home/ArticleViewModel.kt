@@ -102,18 +102,17 @@ class ArticleViewModel : BaseViewModel() {
                 if (result is luyao.wanandroid.compose.model.bean.Result.Success) {
                     val articleList = result.data
                     if (articleList.offset >= articleList.total) {
-                        emitArticleUiState(showLoading = false, showEnd = true)
+                        emitArticleUiState(showEnd = true)
                         return@withContext
                     }
                     currentPage++
                     emitArticleUiState(
-                        showLoading = false,
                         showSuccess = articleList,
                         isRefresh = isRefresh
                     )
 
                 } else if (result is Result.Error) {
-                    emitArticleUiState(showLoading = false, showError = result.exception.message)
+                    emitArticleUiState(showError = result.exception.message)
                 }
 
             }
@@ -122,7 +121,7 @@ class ArticleViewModel : BaseViewModel() {
     }
 
     private fun emitArticleUiState(
-        showLoading: Boolean = false,
+        showLoading: Boolean? = null,
         showError: String? = null,
         showSuccess: ArticleList? = null,
         showEnd: Boolean = false,
@@ -136,7 +135,7 @@ class ArticleViewModel : BaseViewModel() {
 
 
     data class ArticleUiModel(
-        val showLoading: Boolean = false,
+        val showLoading: Boolean? = null,
         val showError: String? = null,
         val showSuccess: ArticleList? = null,
         val showEnd: Boolean = false, // 加载更多

@@ -23,7 +23,7 @@ import luyao.wanandroid.compose.ui.home.HomeScreen
 
 
 @Composable
-fun WanandroidApp(articleUiModel: ArticleViewModel.ArticleUiModel, onTabSelected: (Int) -> Unit) {
+fun WanandroidApp(viewModel: ArticleViewModel) {
 
     val (drawerState, onDrawerStateChange) = +state { DrawerState.Closed }
 
@@ -40,10 +40,8 @@ fun WanandroidApp(articleUiModel: ArticleViewModel.ArticleUiModel, onTabSelected
             },
             bodyContent = {
                 AppContent(
-                    articleUiModel,
-                    { onDrawerStateChange(DrawerState.Opened) },
-                    onTabSelected = onTabSelected
-                )
+                    viewModel
+                ) { onDrawerStateChange(DrawerState.Opened) }
             }
         )
     }
@@ -91,22 +89,19 @@ private fun AppDrawer(
 
 @Composable
 private fun AppContent(
-    articleUiModel: ArticleViewModel.ArticleUiModel,
-    openDrawer: () -> Unit,
-    onTabSelected: (Int) -> Unit
+    viewModel: ArticleViewModel,
+    openDrawer: () -> Unit
 ) {
     Crossfade(WanandroidStatus.currentScreen) { screen ->
         Surface(color = +themeColor { background }) {
             when (screen) {
                 is Screen.Home -> HomeScreen(
-                    articleUiModel,
-                    openDrawer = { openDrawer() },
-                    onTabSelected = onTabSelected
+                    viewModel,
+                    openDrawer = { openDrawer() }
                 )
                 is Screen.About -> HomeScreen(
-                    articleUiModel,
-                    openDrawer = { openDrawer() },
-                    onTabSelected = onTabSelected
+                    viewModel,
+                    openDrawer = { openDrawer() }
                 )
             }
         }

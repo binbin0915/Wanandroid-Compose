@@ -1,8 +1,10 @@
 package luyao.wanandroid.compose.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
-import androidx.ui.core.Alignment
+import androidx.core.content.ContextCompat.startActivity
 import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.foundation.DrawImage
@@ -24,15 +26,22 @@ import luyao.wanandroid.compose.ui.VectorImage
  * on 2019/11/12 11:18
  */
 @Composable
-fun MainTab(articleUiModel: ArticleViewModel.ArticleUiModel) {
-    VerticalScroller {
-        Column {
-            HeightSpacer(height = 16.dp)
-            articleUiModel.showSuccess?.datas?.forEach {
-                ArticleItem(article = it)
-            }
+fun MainTab(articleUiModel: ArticleViewModel.ArticleUiModel?) {
 
-            articleUiModel.showError?.let { toast(App.Companion.CONTEXT, it) }
+    VerticalScroller {
+        FlexColumn {
+            inflexible {
+                HeightSpacer(height = 16.dp)
+            }
+            flexible(1f) {
+                articleUiModel?.showSuccess?.datas?.forEach {
+                    ArticleItem(article = it)
+                }
+
+                articleUiModel?.showError?.let { toast(App.CONTEXT, it) }
+
+                articleUiModel?.showLoading?.let { Progress() }
+            }
         }
     }
 }
@@ -49,8 +58,8 @@ fun ArticleItem(article: Article) {
                 color = Color.Transparent,
                 shape = +themeShape { button }
             ),
-            onClick = { }
-        ){
+            onClick = { openUrl(article.link) }
+        ) {
             Column {
                 FlexRow {
                     inflexible {
@@ -135,5 +144,18 @@ private fun ArticleStarButton(
             }
         }
     }
+
+}
+
+@Composable
+fun Progress() {
+    Center {
+        CircularProgressIndicator()
+    }
+}
+
+private fun openUrl(url:String){
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    App.CONTEXT.startActivity(intent)
 
 }

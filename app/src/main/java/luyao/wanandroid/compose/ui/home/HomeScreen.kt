@@ -3,7 +3,6 @@ package luyao.wanandroid.compose.ui.home
 import androidx.compose.Composable
 import androidx.compose.state
 import androidx.compose.unaryPlus
-import androidx.lifecycle.LiveData
 import androidx.ui.core.Text
 import androidx.ui.layout.FlexColumn
 import androidx.ui.material.Tab
@@ -26,7 +25,10 @@ private enum class HomeSections(val title: String) {
 }
 
 @Composable
-fun HomeScreen(articleUiModel: ArticleViewModel.ArticleUiModel, openDrawer: () -> Unit,onTabSelected:(Int) -> Unit) {
+fun HomeScreen(
+    mViewModel: ArticleViewModel,
+    openDrawer: () -> Unit
+) {
     var section by +state { HomeSections.Main }
     val sectionTitles = HomeSections.values().map { it.title }
 
@@ -40,16 +42,20 @@ fun HomeScreen(articleUiModel: ArticleViewModel.ArticleUiModel, openDrawer: () -
         inflexible {
             TabRow(items = sectionTitles, selectedIndex = section.ordinal) { index, text ->
                 Tab(text = text, selected = section.ordinal == index) {
-                    onTabSelected(index)
+                    when (index) {
+                        0 -> mViewModel.getHomeArticleList(true)
+                        1 -> mViewModel.getSquareArticleList(true)
+                        2 -> mViewModel.getLatestProjectList(true)
+                    }
                     section = HomeSections.values()[index]
                 }
             }
         }
         expanded(1f) {
             when (section) {
-                HomeSections.Main -> MainTab(articleUiModel)
-                HomeSections.Square -> MainTab(articleUiModel)
-                HomeSections.Lasted -> MainTab(articleUiModel)
+                HomeSections.Main -> MainTab(mViewModel.uiState.value)
+                HomeSections.Square -> MainTab(mViewModel.uiState.value)
+                HomeSections.Lasted -> MainTab(mViewModel.uiState.value)
 //                HomeSections.System -> MainTab(articleUiModel)
 //                HomeSections.Navigation -> MainTab(articleUiModel)
             }

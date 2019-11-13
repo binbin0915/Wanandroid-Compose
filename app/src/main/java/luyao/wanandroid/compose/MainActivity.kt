@@ -14,14 +14,8 @@ class MainActivity : BaseVMActivity<ArticleViewModel>() {
 
     override fun initView() {
         setContent {
-            val data = +observe(mViewModel.uiState)
-            data?.let { WanandroidApp(it){index ->
-                when(index){
-                    0 -> mViewModel.getHomeArticleList()
-                    1 -> mViewModel.getSquareArticleList()
-                    2 -> mViewModel.getLatestProjectList()
-                }
-            } }
+           +observe(mViewModel.uiState)
+            WanandroidApp(mViewModel)
         }
     }
 
