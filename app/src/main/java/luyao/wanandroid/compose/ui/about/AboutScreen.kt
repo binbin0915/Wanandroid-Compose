@@ -27,7 +27,7 @@ fun AboutScreen(openDrawer: () -> Unit) {
         inflexible {
             TopAppBar(title = { Text("关于") },
                 navigationIcon = {
-                    VectorImageButton(id = R.drawable.ic_android, onClick = { openDrawer() })
+                    VectorImageButton(id = R.drawable.ic_drawer, onClick = { openDrawer() })
                 })
         }
 

@@ -36,7 +36,7 @@ fun HomeScreen(
         inflexible {
             TopAppBar(title = { Text("玩安卓") },
                 navigationIcon = {
-                    VectorImageButton(id = R.drawable.ic_android, onClick = { openDrawer() })
+                    VectorImageButton(id = R.drawable.ic_drawer, onClick = { openDrawer() })
                 })
         }
         inflexible {
